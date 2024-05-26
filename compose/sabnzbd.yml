@@ -1,0 +1,13 @@
+services:
+  Sabnzbd:
+    image: linuxserver/sabnzbd:latest
+    container_name: Sabnzbd
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+    volumes:
+      - ../provision/sabnzbd:/config
+      - ../content/usenet:/downloads
+    network_mode: service:gluetun
+    restart: unless-stopped

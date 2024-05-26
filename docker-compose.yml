@@ -1,0 +1,20 @@
+networks:
+  default:
+    driver: bridge  
+
+include:
+  - compose/bazarr.yml
+  - compose/gluetun.yml
+  # - compose/heimdall.yml
+  - compose/homepage.yml
+  # - compose/lidarr.yml
+  # - compose/nzbget.yml
+  - compose/plex.yml
+  - compose/prowlarr.yml
+  - compose/qbittorrent.yml
+  - compose/radarr.yml
+  # - compose/sabnzbd.yml
+  - compose/sonarr.yml
+  # - compose/traefik.yml
+  - compose/watchlistarr.yml
+  # - compose/watchtower.yml

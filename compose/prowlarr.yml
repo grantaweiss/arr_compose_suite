@@ -1,0 +1,27 @@
+services:
+  prowlarr:
+    image: linuxserver/prowlarr
+    container_name: prowlarr
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+    volumes:
+      - ../provision/prowlarr:/config
+
+    # ports:
+    #   - 9696:9696
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    # networks:
+    #   - media-network
+    labels:
+      - homepage.group=Download
+      - homepage.name=Prowlarr
+      - homepage.icon=prowlarr.png
+      - homepage.href=http://localhost:9696
+      - homepage.description=Indexers management
+      - homepage.weight=1
+      - homepage.widget.type=prowlarr
+      - homepage.widget.url=http://localhost:9696
+      - homepage.widget.key=${PROWLARR_API_KEY}

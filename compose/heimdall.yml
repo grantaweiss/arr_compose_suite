@@ -1,0 +1,17 @@
+services:
+  heimdall:
+    image: linuxserver/heimdall
+    container_name: heimdall
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+    volumes:
+      - ../provision/heimdall:/config
+    ports:
+      - "80:80"
+      - "443:443"
+      # - "8083:80"
+    restart: unless-stopped
+    # networks:
+    #   - media-network

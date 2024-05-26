@@ -1,0 +1,14 @@
+services:
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+    volumes:
+      - ../provision/bazarr:/config
+      - ../content:/data
+    ports:
+      - "6767:6767"
+    restart: unless-stopped

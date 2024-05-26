@@ -1,0 +1,52 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    hostname: gluetun
+    cap_add:
+      - NET_ADMIN
+    # devices:
+    #   - /dev/net/tun:/dev/net/tun
+    network_mode: bridge
+    ports:
+      - 8888:8888/tcp # HTTP proxy
+      - 8388:8388/tcp # Shadowsocks
+      - 8388:8388/udp # Shadowsocks
+      - 8090:8090 # qbittorrent Web UI
+      - 6881:6881 # qbittorrent
+      - 6881:6881/udp # qbittorrent
+      - 8389:8389/udp # Gluetun-Shadowsocks?
+      - 8389:8389/tcp # Gluetun-Shadowsocks?
+      - 8889:8889/tcp # Gluetun
+      - 9696:9696 # prowlarr
+      # - 9117:9117 # jackett
+      - 8989:8989 # sonarr
+      - 7878:7878 # radarr
+      # - 8686:8686 # lidarr
+      - 8000:8000/tcp # http control server
+    volumes:
+      - ../provision/gluetun:/gluetun
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+
+      # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
+      VPN_SERVICE_PROVIDER: $VPN_SERVICE_PROVIDER
+      OPENVPN_USER: $VPN_USER
+      OPENVPN_PASSWORD: $VPN_PASSWORD
+
+      # FIREWALL_OUTBOUND_SUBNETS: 172.18.0.0/24
+
+      # FIREWALL_OUTBOUND_SUBNETS: "192.168.1.0/24,192.168.0.0/24,172.18.0.0/24"
+
+    restart: unless-stopped
+    labels:
+      - homepage.group=VPN
+      - homepage.name=Gluetun
+      - homepage.icon=gluetun.png
+      - homepage.href=http://localhost:8000
+      - homepage.description=Gluetun VPN
+      - homepage.weight=0
+      - homepage.widget.type=gluetun
+      - homepage.widget.url=http://localhost:8000

@@ -1,0 +1,29 @@
+services:
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+    volumes:
+      - ../provision/radarr:/config
+      - ../content:/data
+    # ports:
+    #   - "7878:7878"
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - qbittorrent
+    # networks:
+    #   - media-network
+    labels:
+      - homepage.group=Media
+      - homepage.name=Radarr
+      - homepage.icon=radarr.png
+      - homepage.href=http://localhost:7878
+      - homepage.description=Movies management
+      - homepage.weight=1
+      - homepage.widget.type=radarr
+      - homepage.widget.url=http://localhost:7878
+      - homepage.widget.key=${RADARR_API_KEY}

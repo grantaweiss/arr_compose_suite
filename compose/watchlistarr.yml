@@ -1,0 +1,45 @@
+services:
+  watchlistarr:
+    image: nylonee/watchlistarr:alpha
+    container_name: watchlistarr
+    depends_on:
+      - sonarr
+      - radarr
+    network_mode: host
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+
+      # Sonarr/tv show settings
+      SONARR_API_KEY: $SONARR_API_KEY
+      # SONARR_BASE_URL: "http://gluetun.localhost:8989" # http://localhost:8989
+      # SONARR_QUALITY_PROFILE: 
+      # SONARR_ROOT_FOLDER: 
+      # SONARR_BYPASS_IGNORED: 
+      # SONARR_TAGS: 
+      # SONARR_SEASON_MONITORING: 
+      # ALLOW_ENDED_SHOW_DELETING: 
+      # ALLOW_CONTINUING_SHOW_DELETING: 
+
+      # Radarr/movie settings
+      RADARR_API_KEY: $RADARR_API_KEY
+      # RADARR_BASE_URL: 
+      # RADARR_QUALITY_PROFILE: 
+      # RADARR_ROOT_FOLDER: 
+      # RADARR_BYPASS_IGNORED: 
+      # RADARR_TAGS: 
+      # ALLOW_MOVIE_DELETING: 
+
+      # Plex settings
+      PLEX_TOKEN: $PLEX_TOKEN
+      # PLEX_WATCHLIST_URL_1: 
+      # PLEX_WATCHLIST_URL_2: 
+      # SKIP_FRIEND_SYNC: 
+
+      # Watchlistarr settings
+      # REFRESH_INTERVAL_SECONDS: 
+      # DELETE_INTERVAL_DAYS: 
+      # LOG_LEVEL: 
+    volumes:
+      - ../provision/watchlistarr:/app/config

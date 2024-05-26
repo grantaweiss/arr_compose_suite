@@ -1,0 +1,27 @@
+services:
+  lidarr:
+    image: linuxserver/lidarr
+    container_name: lidarr
+    environment:
+      PUID: $USER_ID
+      PGID: $GROUP_ID
+      TZ: $TIMEZONE
+    volumes:
+      - ../provision/lidarr:/config
+      - ../content:/data
+    ports:
+      - "8686:8686"
+    restart: unless-stopped
+    # network_mode: "service:gluetun"
+    networks:
+      - media-network
+    labels:
+      - homepage.group=Media
+      - homepage.name=Lidarr
+      - homepage.icon=lidarr.png
+      - homepage.href=/lidarr
+      - homepage.description=Music management
+      - homepage.weight=2
+      - homepage.widget.type=lidarr
+      - homepage.widget.url=http://lidarr:8686/lidarr
+      - homepage.widget.key=${LIDARR_API_KEY}

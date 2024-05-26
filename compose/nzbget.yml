@@ -1,0 +1,12 @@
+services:
+  nzbget:
+    image: linuxserver/nzbget
+    container_name: nzbget
+    volumes:
+        - ../provision/nzbget:/config
+        # - /path/to/nzbget/downloads:/downloads
+    restart: always
+    environment:
+        TZ: $TIMEZONE
+    ports:
+        - 6789:6789
